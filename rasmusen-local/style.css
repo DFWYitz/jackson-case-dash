@@ -1,0 +1,54 @@
+/* Reset margins and paddings for everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Clean font and background */
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  background: #fff;
+  color: #111;
+  padding: 20px;
+}
+/* Make all headings bold, big, centered optionally */
+h1, h2, h3 {
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin-bottom: 1em;
+  color: #444;
+  font-size: 1rem;
+}
+/* Style any container divs or body children as blocks */
+body > * {
+  padding: 20px;
+  border-left: 4px solid #111;
+  margin-bottom: 30px;
+  background: #fefefe;
+}
+iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+  display: block;
+  margin: 0 auto;
+}
+a {
+  color: #111;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #007bff;
+}
+header, footer {
+  text-align: center;
+  margin-bottom: 40px;  /* header only */
+  font-size: 0.9rem;    /* footer only */
+  color: #666;
+}
