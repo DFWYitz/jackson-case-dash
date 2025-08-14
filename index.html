@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jackson v. Academic Controversy - Case Documentation</title>
+    <title>Jackson v. UNT - Academic Freedom & Institutional Accountability</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 80px 20px;
             text-align: center;
@@ -34,14 +34,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.2);
             z-index: 1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -73,134 +73,148 @@
             padding: 0 20px;
         }
 
-        .section {
-            margin: 60px 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #1a202c;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #718096;
-            margin-bottom: 40px;
-        }
-
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-tab {
-            padding: 12px 24px;
+        .narrative-section {
             background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .filter-tab:hover, .filter-tab.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .content-card {
-            background: white;
+            margin: 40px 0;
             border-radius: 15px;
-            padding: 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        .card-category {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 6px 12px;
-            background: #667eea;
+        .section-header {
+            padding: 30px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        .card-title {
-            font-size: 1.4rem;
+        .section-header:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 15px;
-            color: #1a202c;
-            padding-right: 100px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .card-meta {
+        .section-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .expand-icon {
+            margin-left: auto;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section-content.expanded {
+            max-height: 3000px;
+        }
+
+        .subsection {
+            border-left: 4px solid #e2e8f0;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .subsection:hover {
+            border-left-color: #667eea;
+        }
+
+        .subsection-header {
+            padding: 20px;
+            cursor: pointer;
+            background: #f7fafc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .subsection-header:hover {
+            background: #edf2f7;
+        }
+
+        .subsection-header h3 {
+            font-size: 1.4rem;
+            color: #2d3748;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subsection-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .subsection-content.expanded {
+            max-height: 1500px;
+            padding: 20px;
+        }
+
+        .evidence-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 15px 0;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .evidence-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+        }
+
+        .evidence-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .evidence-meta {
             display: flex;
             gap: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-size: 0.9rem;
             color: #718096;
         }
 
-        .card-description {
+        .evidence-description {
             color: #4a5568;
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
-        .card-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 4px 12px;
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: #4a5568;
-        }
-
-        .card-actions {
+        .evidence-actions {
             display: flex;
             gap: 10px;
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            font-size: 0.9rem;
         }
 
         .btn-primary {
@@ -218,69 +232,51 @@
             border: 1px solid #e2e8f0;
         }
 
-        .btn-secondary:hover {
-            background: #edf2f7;
+        .accountability-level {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 10px;
         }
 
-        .timeline {
-            position: relative;
-            padding: 20px 0;
+        .level-faculty {
+            background: #fef5e7;
+            color: #d69e2e;
         }
 
-        .timeline-item {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 40px;
-            align-items: flex-start;
+        .level-admin {
+            background: #fed7d7;
+            color: #c53030;
         }
 
-        .timeline-date {
-            min-width: 120px;
-            font-weight: 700;
-            color: #667eea;
-            text-align: right;
+        .level-upper-admin {
+            background: #e6fffa;
+            color: #319795;
         }
 
-        .timeline-content {
-            flex: 1;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        .level-state {
+            background: #ebf8ff;
+            color: #3182ce;
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+        .level-federal {
+            background: #f0fff4;
+            color: #38a169;
         }
 
-        .stat-card {
+        .search-controls {
             background: white;
             padding: 30px;
             border-radius: 15px;
-            text-align: center;
+            margin: 40px 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #667eea;
-            display: block;
-        }
-
-        .stat-label {
-            color: #718096;
-            font-weight: 600;
-            margin-top: 10px;
         }
 
         .search-box {
             width: 100%;
             max-width: 500px;
-            margin: 0 auto 40px;
+            margin: 0 auto;
             padding: 15px 25px;
             border: 2px solid #e2e8f0;
             border-radius: 50px;
@@ -293,339 +289,491 @@
             border-color: #667eea;
         }
 
+        .quick-nav {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
             
-            .content-grid {
-                grid-template-columns: 1fr;
+            .section-header h2 {
+                font-size: 1.5rem;
             }
             
-            .timeline-item {
+            .evidence-meta {
                 flex-direction: column;
-                gap: 15px;
+                gap: 5px;
             }
-            
-            .timeline-date {
-                text-align: left;
-                min-width: auto;
-            }
-        }
-
-        .hidden {
-            display: none;
         }
     </style>
 </head>
 <body>
     <div class="hero">
         <div class="hero-content">
-            <h1>Jackson Academic Freedom Case</h1>
-            <p>Comprehensive documentation of the legal proceedings involving academic freedom, scholarly discourse, and institutional accountability</p>
-            <span class="status-badge">Case Active • Updated Aug 2025</span>
+            <h1>Jackson v. UNT System</h1>
+            <p>Academic Freedom, Institutional Accountability & Civil Rights Violations<br>
+            A comprehensive examination of administrative failure across all levels of governance</p>
+            <span class="status-badge">Active Litigation • Federal Civil Rights Claims</span>
         </div>
     </div>
 
     <div class="container">
         <!-- Stats Overview -->
-        <div class="stats">
+        <div class="stats-overview">
             <div class="stat-card">
-                <span class="stat-number" id="video-count">0</span>
-                <div class="stat-label">Video Depositions</div>
+                <div class="stat-number">4</div>
+                <div class="stat-label">Institutional Levels</div>
             </div>
             <div class="stat-card">
-                <span class="stat-number" id="document-count">0</span>
-                <div class="stat-label">Legal Documents</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number" id="person-count">0</span>
-                <div class="stat-label">Key Players</div>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number" id="exhibit-count">0</span>
+                <div class="stat-number">50+</div>
                 <div class="stat-label">Evidence Files</div>
             </div>
-        </div>
-
-        <!-- Search and Filter -->
-        <div class="section">
-            <input type="text" class="search-box" id="searchBox" placeholder="Search documents, depositions, or evidence...">
-            
-            <div class="filter-tabs">
-                <div class="filter-tab active" data-filter="all">All Content</div>
-                <div class="filter-tab" data-filter="depositions">Video Depositions</div>
-                <div class="filter-tab" data-filter="motions">Legal Filings</div>
-                <div class="filter-tab" data-filter="evidence">Key Evidence</div>
-                <div class="filter-tab" data-filter="correspondence">Communications</div>
-                <div class="filter-tab" data-filter="players">Key Players</div>
+            <div class="stat-card">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Years Active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Key Witnesses</div>
             </div>
         </div>
 
-        <!-- Content Grid -->
-        <div class="content-grid" id="contentGrid">
-            <!-- Content will be dynamically loaded here -->
-        </div>
-
-        <!-- Timeline Section -->
-        <div class="section">
-            <h2 class="section-title">Case Timeline</h2>
-            <p class="section-subtitle">Key developments in chronological order</p>
-            <div class="timeline" id="timeline">
-                <!-- Timeline items will be loaded here -->
+        <!-- Search Controls -->
+        <div class="search-controls">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search evidence, depositions, correspondence...">
+            <div class="quick-nav">
+                <div class="nav-btn" onclick="jumpToSection('faculty')">Faculty Level</div>
+                <div class="nav-btn" onclick="jumpToSection('admin')">Department Admin</div>
+                <div class="nav-btn" onclick="jumpToSection('upper')">University Leadership</div>
+                <div class="nav-btn" onclick="jumpToSection('state')">State Oversight</div>
+                <div class="nav-btn" onclick="jumpToSection('federal')">Federal Violations</div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // File categorization and processing
-        const rawFiles = [
-            {
-                name: "092724 Rebecca Dowd Geoffrey-Schwinden 1of1.mp4",
-                url: "https://www.rasmusen.org/special/jackson/092724%20Rebecca%20Dowd%20Geoffrey-Schwinden%201of1.mp4",
-                size: "469M",
-                date: "2025-07-28"
-            },
-            {
-                name: "2021-03-08 Jackson Affidavit of Verification.pdf",
-                url: "https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf",
-                size: "318K",
-                date: "2025-07-28"
-            },
-            {
-                name: "2021-03-08 Motion for Expedited Discovery.pdf",
-                url: "https://www.rasmusen.org/special/jackson/2021-03-08%20Motion%20for%20Expedited%20Discovery.pdf",
-                size: "648K",
-                date: "2025-07-28"
-            },
-            {
-                name: "TJ092424_1of9.mpg",
-                url: "https://www.rasmusen.org/special/jackson/TJ092424_1of9.mpg",
-                size: "699M",
-                date: "2025-07-28"
-            },
-            {
-                name: "TJ092424_2of9.mpg",
-                url: "https://www.rasmusen.org/special/jackson/TJ092424_2of9.mpg",
-                size: "680M",
-                date: "2025-07-28"
-            },
-            {
-                name: "2024-09-23 Brand deposition transcript - full-size and word index.pdf",
-                url: "https://www.rasmusen.org/special/jackson/2024-09-23%20Brand%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf",
-                size: "1.1M",
-                date: "2025-07-28"
-            },
-            {
-                name: "E mail correspondence about Ewell and the Symposium 2019-.pdf",
-                url: "https://www.rasmusen.org/special/jackson/E%20mail%20correspondence%20about%20Ewell%20and%20the%20Symposium%202019-.pdf",
-                size: "2.8M",
-                date: "2025-08-10"
-            },
-            {
-                name: "Timothy Jackson, Preliminary Response to Ewell, Journal of Schenkerian Studies Volume 12.pdf",
-                url: "https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf",
-                size: "2.2M",
-                date: "2025-08-10"
-            },
-            {
-                name: "2024-12-11 [80] Plaintiff's Motion for Summary Judgment on Defamation Claims.pdf",
-                url: "https://www.rasmusen.org/special/jackson/2024-12-11%20%5b80%5d%20Plaintiff&#39;s%20Motion%20for%20Summary%20Judgment%20on%20Defamation%20Claims.pdf",
-                size: "315K",
-                date: "2025-08-07"
-            },
-            {
-                name: "Walls 5-18-21 full-size and word index.pdf",
-                url: "https://www.rasmusen.org/special/jackson/Walls%205-18-21%20full-size%20and%20word%20index.pdf",
-                size: "1.2M",
-                date: "2025-07-28"
-            }
-        ];
-
-        // Categorization logic
-        function categorizeFile(file) {
-            const name = file.name.toLowerCase();
-            
-            if (name.includes('tj092424_') || name.includes('.mpg') || name.includes('deposition') && name.includes('.mp4')) {
-                return {
-                    category: 'depositions',
-                    type: 'Video Deposition',
-                    description: 'Recorded deposition testimony under oath'
-                };
-            }
-            
-            if (name.includes('motion') || name.includes('judgment') || name.includes('affidavit') || name.includes('[80]') || name.includes('[81]')) {
-                return {
-                    category: 'motions',
-                    type: 'Legal Filing',
-                    description: 'Court filings and legal motions'
-                };
-            }
-            
-            if (name.includes('correspondence') || name.includes('email') || name.includes('e mail')) {
-                return {
-                    category: 'correspondence',
-                    type: 'Communications',
-                    description: 'Email exchanges and communications'
-                };
-            }
-            
-            if (name.includes('ewell') || name.includes('jackson') || name.includes('response')) {
-                return {
-                    category: 'evidence',
-                    type: 'Key Evidence',
-                    description: 'Critical evidence and scholarly materials'
-                };
-            }
-            
-            if (name.includes('transcript') || name.includes('deposition') && name.includes('.pdf')) {
-                return {
-                    category: 'depositions',
-                    type: 'Deposition Transcript',
-                    description: 'Written transcript of deposition testimony'
-                };
-            }
-            
-            return {
-                category: 'evidence',
-                type: 'Document',
-                description: 'Case-related documentation'
-            };
-        }
-
-        // Process files and create content
-        const processedFiles = rawFiles.map(file => {
-            const categorization = categorizeFile(file);
-            return {
-                ...file,
-                ...categorization,
-                id: file.name.replace(/[^a-zA-Z0-9]/g, '_'),
-                displayName: file.name.replace(/\.(pdf|mp4|mpg)$/i, '').replace(/_/g, ' ')
-            };
-        });
-
-        // Update stats
-        function updateStats() {
-            const stats = processedFiles.reduce((acc, file) => {
-                if (file.category === 'depositions') acc.videos++;
-                else if (file.category === 'motions') acc.documents++;
-                acc.total++;
-                return acc;
-            }, { videos: 0, documents: 0, total: 0 });
-
-            document.getElementById('video-count').textContent = stats.videos;
-            document.getElementById('document-count').textContent = stats.documents;
-            document.getElementById('person-count').textContent = '8'; // Estimated from file names
-            document.getElementById('exhibit-count').textContent = stats.total;
-        }
-
-        // Render content cards
-        function renderContent(files = processedFiles) {
-            const grid = document.getElementById('contentGrid');
-            grid.innerHTML = '';
-
-            files.forEach(file => {
-                const card = document.createElement('div');
-                card.className = 'content-card';
-                card.setAttribute('data-category', file.category);
+        <!-- Narrative Sections -->
+        
+        <!-- Faculty Level -->
+        <div class="narrative-section" id="faculty">
+            <div class="section-header" onclick="toggleSection('faculty')">
+                <h2>
+                    👥 Faculty Level: The Academic Controversy
+                    <span class="accountability-level level-faculty">Faculty Disputes</span>
+                    <span class="expand-icon">▼</span>
+                </h2>
+                <p>Where academic disagreement became personal attack and institutional weaponization</p>
+            </div>
+            <div class="section-content" id="faculty-content">
                 
-                card.innerHTML = `
-                    <div class="card-category">${file.type}</div>
-                    <h3 class="card-title">${file.displayName}</h3>
-                    <div class="card-meta">
-                        <span>📅 ${file.date}</span>
-                        <span>📊 ${file.size}</span>
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('faculty-players')">
+                        <h3>🎭 Key Faculty Players</h3>
+                        <p>The scholars, their positions, and their roles in the controversy</p>
                     </div>
-                    <p class="card-description">${file.description}</p>
-                    <div class="card-tags">
-                        <span class="tag">${file.category}</span>
-                        <span class="tag">${file.size}</span>
-                    </div>
-                    <div class="card-actions">
-                        <a href="${file.url}" class="btn btn-primary" target="_blank">View Document</a>
-                        <button class="btn btn-secondary" onclick="addToHighlights('${file.id}')">Add to Highlights</button>
-                    </div>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
+                    <div class="subsection-content" id="faculty-players-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Timothy Jackson - Plaintiff Profile</div>
+                            <div class="evidence-meta">
+                                <span>📹 9 Video Depositions</span>
+                                <span>📄 Multiple Scholarly Works</span>
+                                <span>⚖️ Primary Plaintiff</span>
+                            </div>
+                            <div class="evidence-description">
+                                Distinguished musicology professor who published scholarly response to Ewell's racial theory claims. His academic critique sparked institutional retaliation.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="#" class="btn btn-primary">View Depositions</a>
+                                <a href="#" class="btn btn-secondary">Academic Works</a>
+                            </div>
+                        </div>
 
-        // Filter functionality
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Update active tab
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                // Filter content
-                const filter = tab.getAttribute('data-filter');
-                if (filter === 'all') {
-                    renderContent(processedFiles);
-                } else {
-                    const filtered = processedFiles.filter(file => file.category === filter);
-                    renderContent(filtered);
-                }
-            });
-        });
+                        <div class="evidence-item">
+                            <div class="evidence-title">Philip Ewell - Subject of Scholarly Critique</div>
+                            <div class="evidence-meta">
+                                <span>📹 Video Deposition</span>
+                                <span>📄 Original Papers</span>
+                                <span>📧 Email Evidence</span>
+                            </div>
+                            <div class="evidence-description">
+                                Author of controversial racial theories in musicology whose work Jackson critiqued. Institutional response favored his position over academic freedom.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/P.Ewell091924C%20(1).mp4" class="btn btn-primary">View Deposition</a>
+                                <a href="#" class="btn btn-secondary">Related Docs</a>
+                            </div>
+                        </div>
 
-        // Search functionality
-        document.getElementById('searchBox').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filtered = processedFiles.filter(file => 
-                file.displayName.toLowerCase().includes(searchTerm) ||
-                file.description.toLowerCase().includes(searchTerm) ||
-                file.type.toLowerCase().includes(searchTerm)
-            );
-            renderContent(filtered);
-        });
-
-        // Timeline generation
-        function renderTimeline() {
-            const timeline = document.getElementById('timeline');
-            const timelineEvents = [
-                {
-                    date: "2021-03-08",
-                    title: "Case Initiated",
-                    description: "Jackson files initial motion for expedited discovery and affidavit of verification"
-                },
-                {
-                    date: "2024-09-23",
-                    title: "Key Depositions",
-                    description: "Brand deposition conducted - critical testimony recorded"
-                },
-                {
-                    date: "2024-12-11",
-                    title: "Summary Judgment Motion",
-                    description: "Plaintiff files motion for summary judgment on defamation claims"
-                },
-                {
-                    date: "2025-08-07",
-                    title: "Recent Developments",
-                    description: "Latest case materials and evidence compilation"
-                }
-            ];
-
-            timeline.innerHTML = timelineEvents.map(event => `
-                <div class="timeline-item">
-                    <div class="timeline-date">${event.date}</div>
-                    <div class="timeline-content">
-                        <h4>${event.title}</h4>
-                        <p>${event.description}</p>
                     </div>
                 </div>
-            `).join('');
-        }
 
-        // Placeholder function for future features
-        function addToHighlights(fileId) {
-            alert('Highlight feature coming soon! This will allow you to bookmark key evidence.');
-        }
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('faculty-evidence')">
+                        <h3>📚 Scholarly Communications</h3>
+                        <p>The academic papers, email exchanges, and peer communications</p>
+                    </div>
+                    <div class="subsection-content" id="faculty-evidence-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Jackson's Scholarly Response to Ewell</div>
+                            <div class="evidence-meta">
+                                <span>📄 2.2MB PDF</span>
+                                <span>📅 Journal Publication</span>
+                                <span>🎯 Core Evidence</span>
+                            </div>
+                            <div class="evidence-description">
+                                Jackson's academic response in the Journal of Schenkerian Studies - the scholarly work that triggered institutional retaliation.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf" class="btn btn-primary">Read Full Response</a>
+                            </div>
+                        </div>
 
-        // Initialize
-        updateStats();
-        renderContent();
-        renderTimeline();
-    </script>
-</body>
-</html>
+                        <div class="evidence-item">
+                            <div class="evidence-title">Faculty Email Correspondence</div>
+                            <div class="evidence-meta">
+                                <span>📧 2.8MB Email Archive</span>
+                                <span>📅 2019-2021</span>
+                                <span>🔍 Smoking Gun Evidence</span>
+                            </div>
+                            <div class="evidence-description">
+                                Extensive email correspondence about the Ewell controversy and subsequent symposium, revealing coordination against Jackson.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/E%20mail%20correspondence%20about%20Ewell%20and%20the%20Symposium%202019-.pdf" class="btn btn-primary">View Emails</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Department Administration -->
+        <div class="narrative-section" id="admin">
+            <div class="section-header" onclick="toggleSection('admin')">
+                <h2>
+                    🏛️ Department Administration: Institutional Bias
+                    <span class="accountability-level level-admin">Admin Misconduct</span>
+                    <span class="expand-icon">▼</span>
+                </h2>
+                <p>How department leadership abandoned neutrality and facilitated discrimination</p>
+            </div>
+            <div class="section-content" id="admin-content">
+                
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('admin-depositions')">
+                        <h3>🎤 Administrative Depositions</h3>
+                        <p>Under-oath testimony revealing departmental decision-making</p>
+                    </div>
+                    <div class="subsection-content" id="admin-depositions-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Brand Deposition Transcript</div>
+                            <div class="evidence-meta">
+                                <span>📄 1.1MB Transcript</span>
+                                <span>📅 Sept 2024</span>
+                                <span>⚖️ Under Oath</span>
+                            </div>
+                            <div class="evidence-description">
+                                Department administrator's testimony revealing internal processes and bias in handling the academic freedom case.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2024-09-23%20Brand%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf" class="btn btn-primary">Read Transcript</a>
+                            </div>
+                        </div>
+
+                        <div class="evidence-item">
+                            <div class="evidence-title">Walls Administrative Testimony</div>
+                            <div class="evidence-meta">
+                                <span>📄 1.2MB Transcript</span>
+                                <span>📅 May 2021</span>
+                                <span>🔍 Administrative Procedures</span>
+                            </div>
+                            <div class="evidence-description">
+                                Comprehensive deposition revealing administrative handling of the controversy and decision-making processes.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/Walls%205-18-21%20full-size%20and%20word%20index.pdf" class="btn btn-primary">Read Transcript</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('admin-process')">
+                        <h3>📋 Administrative Processes</h3>
+                        <p>Editorial processes, committee decisions, and institutional responses</p>
+                    </div>
+                    <div class="subsection-content" id="admin-process-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Journal Editorial Process Documentation</div>
+                            <div class="evidence-meta">
+                                <span>📄 591KB Process Doc</span>
+                                <span>📅 October 2020</span>
+                                <span>📝 Internal Procedures</span>
+                            </div>
+                            <div class="evidence-description">
+                                Detailed documentation of how the Journal of Schenkerian Studies editorial process was compromised and manipulated.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/Editorial%20Process%20of%20JSS%20vol%2012%20(condensed)%20Oct%2013%202020.pdf" class="btn btn-primary">View Process</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- University Leadership -->
+        <div class="narrative-section" id="upper">
+            <div class="section-header" onclick="toggleSection('upper')">
+                <h2>
+                    🏢 University Leadership: Systemic Failure
+                    <span class="accountability-level level-upper-admin">Executive Failure</span>
+                    <span class="expand-icon">▼</span>
+                </h2>
+                <p>How UNT leadership enabled discrimination and violated institutional obligations</p>
+            </div>
+            <div class="section-content" id="upper-content">
+                
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('upper-policies')">
+                        <h3>📜 Policy Violations</h3>
+                        <p>University policies ignored or selectively enforced</p>
+                    </div>
+                    <div class="subsection-content" id="upper-policies-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">UNT Committee Correspondence</div>
+                            <div class="evidence-meta">
+                                <span>📄 852KB Letter</span>
+                                <span>📅 October 2020</span>
+                                <span>🏛️ Official University Response</span>
+                            </div>
+                            <div class="evidence-description">
+                                Official letter to UNT committee revealing institutional bias and failure to protect academic freedom.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/Letter%20to%20UNT%20Committee%20Oct%2017%202020.pdf" class="btn btn-primary">Read Letter</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('upper-evidence')">
+                        <h3>🗂️ Administrative Evidence</h3>
+                        <p>Documents showing institutional knowledge and deliberate action</p>
+                    </div>
+                    <div class="subsection-content" id="upper-evidence-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Exhibit Pack - Summary Judgment Evidence</div>
+                            <div class="evidence-meta">
+                                <span>📄 40MB Evidence Pack</span>
+                                <span>📅 December 2024</span>
+                                <span>⚖️ Court Filing</span>
+                            </div>
+                            <div class="evidence-description">
+                                Comprehensive exhibit package supporting summary judgment motion, demonstrating clear institutional liability.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2024-12-19%20%5b82-1%5d%20Exhibit%20Pack%20Declaration%20Summary%20Judgment.pdf" class="btn btn-primary">View Exhibits</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- State Oversight -->
+        <div class="narrative-section" id="state">
+            <div class="section-header" onclick="toggleSection('state')">
+                <h2>
+                    🏛️ State Oversight: Regulatory Failure
+                    <span class="accountability-level level-state">State Accountability</span>
+                    <span class="expand-icon">▼</span>
+                </h2>
+                <p>Texas Higher Education oversight failures and state constitutional violations</p>
+            </div>
+            <div class="section-content" id="state-content">
+                
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('state-motions')">
+                        <h3>⚖️ Legal Motions & State Claims</h3>
+                        <p>Court filings establishing state-level accountability</p>
+                    </div>
+                    <div class="subsection-content" id="state-motions-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Initial Motion for Expedited Discovery</div>
+                            <div class="evidence-meta">
+                                <span>📄 648KB Motion</span>
+                                <span>📅 March 2021</span>
+                                <span>⚖️ Court Filing</span>
+                            </div>
+                            <div class="evidence-description">
+                                Early motion establishing the scope of state institutional failures requiring immediate judicial intervention.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2021-03-08%20Motion%20for%20Expedited%20Discovery.pdf" class="btn btn-primary">Read Motion</a>
+                            </div>
+                        </div>
+
+                        <div class="evidence-item">
+                            <div class="evidence-title">Jackson Affidavit of Verification</div>
+                            <div class="evidence-meta">
+                                <span>📄 318KB Affidavit</span>
+                                <span>📅 March 2021</span>
+                                <span>✍️ Sworn Statement</span>
+                            </div>
+                            <div class="evidence-description">
+                                Jackson's sworn affidavit establishing personal knowledge of state institutional failures and constitutional violations.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf" class="btn btn-primary">Read Affidavit</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Federal Level -->
+        <div class="narrative-section" id="federal">
+            <div class="section-header" onclick="toggleSection('federal')">
+                <h2>
+                    🇺🇸 Federal Civil Rights: Constitutional Violations
+                    <span class="accountability-level level-federal">Federal Claims</span>
+                    <span class="expand-icon">▼</span>
+                </h2>
+                <p>Section 1983 civil rights violations and federal constitutional protections</p>
+            </div>
+            <div class="section-content" id="federal-content">
+                
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('federal-summary')">
+                        <h3>⚖️ Summary Judgment Motions</h3>
+                        <p>Federal civil rights claims with clear liability</p>
+                    </div>
+                    <div class="subsection-content" id="federal-summary-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Motion for Summary Judgment on Defamation Claims</div>
+                            <div class="evidence-meta">
+                                <span>📄 315KB Motion</span>
+                                <span>📅 December 2024</span>
+                                <span>⚖️ Federal Court Filing</span>
+                            </div>
+                            <div class="evidence-description">
+                                Comprehensive motion establishing clear federal civil rights violations warranting summary judgment against all defendants.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2024-12-11%20%5b80%5d%20Plaintiff&#39;s%20Motion%20for%20Summary%20Judgment%20on%20Defamation%20Claims.pdf" class="btn btn-primary">Read Motion</a>
+                            </div>
+                        </div>
+
+                        <div class="evidence-item">
+                            <div class="evidence-title">Statement of Undisputed Facts</div>
+                            <div class="evidence-meta">
+                                <span>📄 152KB Statement</span>
+                                <span>📅 December 2024</span>
+                                <span>⚖️ Legal Facts</span>
+                            </div>
+                            <div class="evidence-description">
+                                Comprehensive statement of undisputed facts supporting federal civil rights claims and institutional liability.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2024-12-20%20%5b81%5d%20Statement%20of%20Undisputed%20Facts%20in%20support%20of%20Summary%20Judgment%20on%20Defamation%20Claims.pdf" class="btn btn-primary">Read Statement</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-header" onclick="toggleSubsection('federal-opposition')">
+                        <h3>📋 Opposition Evidence</h3>
+                        <p>Comprehensive record appendix and supporting documentation</p>
+                    </div>
+                    <div class="subsection-content" id="federal-opposition-content">
+                        
+                        <div class="evidence-item">
+                            <div class="evidence-title">Record Appendix & Index to Opposition</div>
+                            <div class="evidence-meta">
+                                <span>📄 16MB Appendix</span>
+                                <span>📅 January 2025</span>
+                                <span>📚 Complete Record</span>
+                            </div>
+                            <div class="evidence-description">
+                                Comprehensive record appendix and index supporting opposition to summary judgment, demonstrating the full scope of federal violations.
+                            </div>
+                            <div class="evidence-actions">
+                                <a href="https://www.rasmusen.org/special/jackson/2025-01-17%20%5b90%5d%20Record%20Appendix%20and%20Index%20to%20Pf%20Opposition%20to%20Summary%20Judgment.pdf" class="btn btn-primary">View Record</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
