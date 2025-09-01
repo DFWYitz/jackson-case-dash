@@ -8,8 +8,8 @@ const JacksonUNTCase = () => {
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [openFolder, setOpenFolder] = useState(null);
 
-  // Complete evidence data from Rasmusen's archive
-  const evidenceData = [
+  // Complete evidence data from Rasmusen's archive - wrapped in useMemo for stable reference
+  const evidenceData = useMemo(() => [
     // Timothy Jackson files
     { id: 'jackson-response', title: 'Timothy Jackson, Preliminary Response to Ewell', person: 'Timothy L. Jackson', category: 'faculty', type: 'document', description: 'Jackson&apos;s academic response in the Journal of Schenkerian Studies that triggered the controversy.', url: 'https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf', size: '2.2MB', date: '2020', keywords: 'academic freedom, musicology, scholarly response' },
     { id: 'jackson-affidavit', title: 'Jackson Affidavit of Verification', person: 'Timothy L. Jackson', category: 'state', type: 'legal', description: 'Jackson&apos;s sworn affidavit establishing personal knowledge of institutional failures.', url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf', size: '318KB', date: '2021-03-08', keywords: 'sworn statement, constitutional violations' },
@@ -95,7 +95,7 @@ const JacksonUNTCase = () => {
     // Archive materials
     { id: 'documents-zip', title: 'Documents for Tim (ZIP Archive)', person: 'Archive', category: 'all', type: 'archive', description: 'Compressed archive of documents for Timothy Jackson.', url: 'https://www.rasmusen.org/special/jackson/Documents%20for%20Tim.zip', size: '4.3MB', date: '2025', keywords: 'archive, zip, documents' },
     { id: 'jackson-htm', title: 'Jackson HTML Index', person: 'Archive', category: 'all', type: 'document', description: 'HTML index page for Jackson case materials.', url: 'https://www.rasmusen.org/special/jackson/jackson.htm', size: '5.0KB', date: '2025', keywords: 'index, html, archive' }
-  ];
+  ], []);
 
   const categories = {
     all: {
@@ -149,7 +149,7 @@ const JacksonUNTCase = () => {
     }
   };
 
-  const getTypeIcon = (type) => {
+  const getTypeIcon = (type: 'video' | 'email' | 'legal' | 'folder' | 'document' | 'archive') => {
     switch (type) {
       case 'video': return <Video className="w-4 h-4" />;
       case 'email': return <Mail className="w-4 h-4" />;
