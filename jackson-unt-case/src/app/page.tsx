@@ -159,74 +159,60 @@ const JacksonUNTCase = () => {
     }
   };
 
-  const isFolder = (item) => {
-    return item.isFolder || 
-           item.url.endsWith('/') || 
-           item.type === 'folder' ||
-           item.size === 'Multiple Files' ||
-           item.size === '-';
-  };
+  // Detect if item is a folder
+const isFolder = (item) => {
+  return item.isFolder ||
+         item.url?.endsWith('/') ||
+         item.type === 'folder' ||
+         item.size === 'Multiple Files' ||
+         item.size === '-';
+};
 
-  const filteredEvidence = useMemo(() => {
-    if (!searchTerm) return evidenceData;
-    const term = searchTerm.toLowerCase();
-    return evidenceData.filter(item => 
-      item.title.toLowerCase().includes(term) ||
-      item.description.toLowerCase().includes(term) ||
-      item.keywords.toLowerCase().includes(term) ||
-      item.person.toLowerCase().includes(term)
-    );
-  }, [searchTerm, evidenceData]);
+// Search + filter
+const filteredEvidence = useMemo(() => {
+  if (!searchTerm) return evidenceData;
+  const term = searchTerm.toLowerCase();
+  return evidenceData.filter(item =>
+    item.title?.toLowerCase().includes(term) ||
+    item.description?.toLowerCase().includes(term) ||
+    item.keywords?.toLowerCase().includes(term) ||
+    item.person?.toLowerCase().includes(term)
+  );
+}, [searchTerm, evidenceData]);
 
-  const peopleList = useMemo(() => {
-    const people = {};
-    evidenceData.forEach(item => {
+// Group by person
+const peopleList = useMemo(() => {
+  const people = {};
+  evidenceData.forEach(item => {
+    if (item.person) {
       if (!people[item.person]) {
         people[item.person] = [];
       }
       people[item.person].push(item);
-    });
-    return people;
-  }, [evidenceData]);
+    }
+  });
+  return people;
+}, [evidenceData]);
 
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
-  };
+// Expand/collapse toggle
+const toggleSection = (sectionId) => {
+  setExpandedSections(prev => ({
+    ...prev,
+    [sectionId]: !prev[sectionId]
+  }));
+};
 
-  const jumpToCategory = (category) => {
-    setSelectedPerson(null);
-    setExpandedSections(prev => ({
-      ...prev,
-      [category]: true
-    }));
-    document.getElementById(category)?.scrollIntoView({ behavior: 'smooth' });
-  };
+// Map evidence items by ID for quick lookup
+const evidenceMap = useMemo(() => {
+  const map = {};
+  evidenceData.forEach(item => {
+    if (item.id) {
+      map[item.id] = item;
+    }
+  });
+  return map;
+}, [evidenceData]);
 
-  const selectPerson = (person) => {
-    setSelectedPerson(person);
-    setExpandedSections(prev => ({
-      ...prev,
-      people: true
-    }));
-  };
-
-  const openFolderModal = (folder) => {
-    setOpenFolder(folder);
-  };
-
-  const closeFolderModal = () => {
-    setOpenFolder(null);
-  };
-
-  const stats = {
-    levels: Object.keys(categories).length - 2, // Exclude 'all' and 'people'
-    evidence: evidenceData.length,
-    years: 5,
-    people: Object.keys(peopleList).length
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
