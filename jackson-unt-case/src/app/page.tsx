@@ -11,30 +11,30 @@ const JacksonUNTCase = () => {
   // Complete evidence data from Rasmusen's archive
   const evidenceData = [
     // Timothy Jackson files
-    { id: 'jackson-response', title: 'Timothy Jackson, Preliminary Response to Ewell', person: 'Timothy L. Jackson', category: 'faculty', type: 'document', description: 'Jackson\'s academic response in the Journal of Schenkerian Studies that triggered the controversy.', url: 'https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf', size: '2.2MB', date: '2020', keywords: 'academic freedom, musicology, scholarly response' },
-    { id: 'jackson-affidavit', title: 'Jackson Affidavit of Verification', person: 'Timothy L. Jackson', category: 'state', type: 'legal', description: 'Jackson\'s sworn affidavit establishing personal knowledge of institutional failures.', url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf', size: '318KB', date: '2021-03-08', keywords: 'sworn statement, constitutional violations' },
-    { id: 'jackson-depo-1', title: 'Timothy Jackson Deposition Part 1 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'First part of Jackson\'s comprehensive deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_1of9.mpg', size: '699MB', date: '2024-09-24', keywords: 'deposition, testimony, plaintiff' },
-    { id: 'jackson-depo-2', title: 'Timothy Jackson Deposition Part 2 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Second part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_2of9.mpg', size: '680MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-3', title: 'Timothy Jackson Deposition Part 3 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Third part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_3of9.mpg', size: '449MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-4', title: 'Timothy Jackson Deposition Part 4 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fourth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_4of9.mpg', size: '356MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-5', title: 'Timothy Jackson Deposition Part 5 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fifth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_5of9.mpg', size: '614MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-7', title: 'Timothy Jackson Deposition Part 7 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Seventh part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_7of9.mpg', size: '751MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-8', title: 'Timothy Jackson Deposition Part 8 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Eighth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_8of9%20(2).mpg', size: '311MB', date: '2024-09-24', keywords: 'deposition, testimony' },
-    { id: 'jackson-depo-9', title: 'Timothy Jackson Deposition Part 9 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Final part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_9of9.mpg', size: '174MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-response', title: 'Timothy Jackson, Preliminary Response to Ewell', person: 'Timothy L. Jackson', category: 'faculty', type: 'document', description: 'Jackson&apos;s academic response in the Journal of Schenkerian Studies that triggered the controversy.', url: 'https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf', size: '2.2MB', date: '2020', keywords: 'academic freedom, musicology, scholarly response' },
+    { id: 'jackson-affidavit', title: 'Jackson Affidavit of Verification', person: 'Timothy L. Jackson', category: 'state', type: 'legal', description: 'Jackson&apos;s sworn affidavit establishing personal knowledge of institutional failures.', url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf', size: '318KB', date: '2021-03-08', keywords: 'sworn statement, constitutional violations' },
+    { id: 'jackson-depo-1', title: 'Timothy Jackson Deposition Part 1 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'First part of Jackson&apos;s comprehensive deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_1of9.mpg', size: '699MB', date: '2024-09-24', keywords: 'deposition, testimony, plaintiff' },
+    { id: 'jackson-depo-2', title: 'Timothy Jackson Deposition Part 2 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Second part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_2of9.mpg', size: '680MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-3', title: 'Timothy Jackson Deposition Part 3 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Third part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_3of9.mpg', size: '449MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-4', title: 'Timothy Jackson Deposition Part 4 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fourth part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_4of9.mpg', size: '356MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-5', title: 'Timothy Jackson Deposition Part 5 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fifth part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_5of9.mpg', size: '614MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-7', title: 'Timothy Jackson Deposition Part 7 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Seventh part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_7of9.mpg', size: '751MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-8', title: 'Timothy Jackson Deposition Part 8 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Eighth part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_8of9%20(2).mpg', size: '311MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-9', title: 'Timothy Jackson Deposition Part 9 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Final part of Jackson&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_9of9.mpg', size: '174MB', date: '2024-09-24', keywords: 'deposition, testimony' },
 
     // Philip Ewell files
-    { id: 'ewell-depo-1', title: 'Philip Ewell Deposition Part 1', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'First part of Ewell\'s deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924C%20(1).mp4', size: '301MB', date: '2024-09-19', keywords: 'deposition, racial theory, musicology' },
-    { id: 'ewell-depo-2', title: 'Philip Ewell Deposition Part 2', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Second part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924D%20(2).mp4', size: '120MB', date: '2024-09-19', keywords: 'deposition, testimony' },
-    { id: 'ewell-depo-3', title: 'Philip Ewell Deposition Part 3', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Third part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924E%20(1).mp4', size: '572MB', date: '2024-09-19', keywords: 'deposition, testimony' },
-    { id: 'ewell-depo-4', title: 'Philip Ewell Deposition Part 4', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Fourth part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924F%20(2).mp4', size: '315MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+    { id: 'ewell-depo-1', title: 'Philip Ewell Deposition Part 1', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'First part of Ewell&apos;s deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924C%20(1).mp4', size: '301MB', date: '2024-09-19', keywords: 'deposition, racial theory, musicology' },
+    { id: 'ewell-depo-2', title: 'Philip Ewell Deposition Part 2', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Second part of Ewell&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924D%20(2).mp4', size: '120MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+    { id: 'ewell-depo-3', title: 'Philip Ewell Deposition Part 3', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Third part of Ewell&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924E%20(1).mp4', size: '572MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+    { id: 'ewell-depo-4', title: 'Philip Ewell Deposition Part 4', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Fourth part of Ewell&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924F%20(2).mp4', size: '315MB', date: '2024-09-19', keywords: 'deposition, testimony' },
 
     // Folder entries for organized collections
     { id: 'ewell-production', title: 'Ewell Production Documents', person: 'Philip Ewell', category: 'faculty', type: 'folder', description: 'Complete collection of documents produced by Philip Ewell during discovery.', url: 'https://www.rasmusen.org/special/jackson/Ewell_production/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'discovery, production, documents' },
-    { id: 'ewell-exhibits', title: 'Ewell Marked Exhibits', person: 'Philip Ewell', category: 'faculty', type: 'folder', description: 'Marked exhibits related to Philip Ewell\'s involvement in the case.', url: 'https://www.rasmusen.org/special/jackson/Ewell_marked_exhibits/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'exhibits, marked documents' },
+    { id: 'ewell-exhibits', title: 'Ewell Marked Exhibits', person: 'Philip Ewell', category: 'faculty', type: 'folder', description: 'Marked exhibits related to Philip Ewell&apos;s involvement in the case.', url: 'https://www.rasmusen.org/special/jackson/Ewell_marked_exhibits/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'exhibits, marked documents' },
 
     // Rachel Gain files
     { id: 'gain-depo', title: 'Rachel Gain Deposition Transcript', person: 'Rachel Gain', category: 'admin', type: 'document', description: 'Full deposition transcript of graduate student Rachel Gain.', url: 'https://www.rasmusen.org/special/jackson/Gain%205-19-21%20full-size%20and%20word%20index.pdf', size: '617KB', date: '2021-05-19', keywords: 'deposition, graduate student, defendant' },
-    { id: 'gain-exhibits', title: 'Rachel Gain Exhibits 35-39', person: 'Rachel Gain', category: 'admin', type: 'document', description: 'Exhibits 35-39 from Rachel Gain\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/Gain%20Exs%2035-39,%205-19-21.pdf', size: '4.7MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
+    { id: 'gain-exhibits', title: 'Rachel Gain Exhibits 35-39', person: 'Rachel Gain', category: 'admin', type: 'document', description: 'Exhibits 35-39 from Rachel Gain&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/Gain%20Exs%2035-39,%205-19-21.pdf', size: '4.7MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
     { id: 'gain-folder', title: 'Rachel Gain Document Collection', person: 'Rachel Gain', category: 'admin', type: 'folder', description: 'Complete collection of documents related to Rachel Gain.', url: 'https://www.rasmusen.org/special/jackson/Rachel_Gain/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'graduate student, defendant, documents' },
 
     // Rebecca Dowd Geoffroy-Schwinden
@@ -43,7 +43,7 @@ const JacksonUNTCase = () => {
 
     // Benjamin Brand (UNT Administrator)
     { id: 'brand-depo', title: 'Benjamin Brand Deposition Transcript', person: 'Benjamin Brand', category: 'admin', type: 'document', description: 'Full deposition of UNT Department Chair Benjamin Brand.', url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20Brand%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf', size: '1.1MB', date: '2024-09-23', keywords: 'department chair, administrator, deposition' },
-    { id: 'brand-condensed', title: 'Benjamin Brand Deposition (Condensed)', person: 'Benjamin Brand', category: 'admin', type: 'document', description: 'Condensed version of Benjamin Brand\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20deposition%20of%20Benjamin%20Brand%20condensed.pdf', size: '1.0MB', date: '2024-09-23', keywords: 'deposition, condensed, administrator' },
+    { id: 'brand-condensed', title: 'Benjamin Brand Deposition (Condensed)', person: 'Benjamin Brand', category: 'admin', type: 'document', description: 'Condensed version of Benjamin Brand&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20deposition%20of%20Benjamin%20Brand%20condensed.pdf', size: '1.0MB', date: '2024-09-23', keywords: 'deposition, condensed, administrator' },
 
     // Levi Walls
     { id: 'walls-depo', title: 'Levi Walls Deposition Full Transcript', person: 'Levi Walls', category: 'admin', type: 'document', description: 'Complete deposition transcript of Levi Walls.', url: 'https://www.rasmusen.org/special/jackson/Walls%205-18-21%20full-size%20and%20word%20index.pdf', size: '1.2MB', date: '2021-05-18', keywords: 'deposition, witness, journal editor' },
@@ -53,7 +53,7 @@ const JacksonUNTCase = () => {
 
     // Frank Heidlberger
     { id: 'heidlberger-depo', title: 'Frank Heidlberger Deposition', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Deposition transcript of Frank Heidlberger.', url: 'https://www.rasmusen.org/special/jackson/Heidlberger%205-19-21%20full-size%20and%20word%20index.pdf', size: '851KB', date: '2021-05-19', keywords: 'deposition, defendant, faculty' },
-    { id: 'heidlberger-exhibits', title: 'Frank Heidlberger Exhibits 24-34', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Exhibits 24-34 from Frank Heidlberger\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/Heidlberger%20Exs%2024-34,%205-19-21.pdf', size: '22MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
+    { id: 'heidlberger-exhibits', title: 'Frank Heidlberger Exhibits 24-34', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Exhibits 24-34 from Frank Heidlberger&apos;s deposition.', url: 'https://www.rasmusen.org/special/jackson/Heidlberger%20Exs%2024-34,%205-19-21.pdf', size: '22MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
     { id: 'heidlberger-folder', title: 'Frank Heidlberger Documents', person: 'Frank Heidlberger', category: 'admin', type: 'folder', description: 'Document collection for Frank Heidlberger.', url: 'https://www.rasmusen.org/special/jackson/Frank_Heidlberger/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, faculty, documents' },
 
     // Other defendant folders
@@ -82,7 +82,7 @@ const JacksonUNTCase = () => {
     { id: 'including-bakulina', title: 'Including Bakulina Document', person: 'Ellen Bakulina', category: 'admin', type: 'document', description: 'Document specifically including Ellen Bakulina materials.', url: 'https://www.rasmusen.org/special/jackson/Including%20Bakulina%20-%20Defendant%20UNT\'s%20Objections%20and%20Responses%20to%20Plaintiff\'s%20Second%20Set%20of%20Requests%20for%20Production.pdf', size: '79KB', date: '2025', keywords: 'bakulina, defendant, objections' },
 
     // Expert testimony and witness materials
-    { id: 'peter-kohanski', title: 'Peter Kohanski Materials', person: 'Peter Kohanski', category: 'admin', type: 'document', description: 'Materials related to PhD student Peter Kohanski\'s involvement.', url: 'https://www.rasmusen.org/special/jackson/Peter%20Kohanski-20250110_110816.pdf', size: '8.7MB', date: '2025-01-10', keywords: 'phd student, witness, petition' },
+    { id: 'peter-kohanski', title: 'Peter Kohanski Materials', person: 'Peter Kohanski', category: 'admin', type: 'document', description: 'Materials related to PhD student Peter Kohanski&apos;s involvement.', url: 'https://www.rasmusen.org/special/jackson/Peter%20Kohanski-20250110_110816.pdf', size: '8.7MB', date: '2025-01-10', keywords: 'phd student, witness, petition' },
     { id: 'dr-philip-adrian', title: 'Dr. Philip Adrian Documents', person: 'Dr. Philip Adrian', category: 'admin', type: 'folder', description: 'Document collection for Dr. Philip Adrian.', url: 'https://www.rasmusen.org/special/jackson/80006_Dr_Philip_Adrian_Hill/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'expert, witness, documents' },
 
     // Supporting materials and exhibits
@@ -176,7 +176,7 @@ const JacksonUNTCase = () => {
       item.keywords.toLowerCase().includes(term) ||
       item.person.toLowerCase().includes(term)
     );
-  }, [searchTerm]);
+  }, [searchTerm, evidenceData]);
 
   const peopleList = useMemo(() => {
     const people = {};
@@ -187,7 +187,7 @@ const JacksonUNTCase = () => {
       people[item.person].push(item);
     });
     return people;
-  }, []);
+  }, [evidenceData]);
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({
@@ -252,7 +252,7 @@ const JacksonUNTCase = () => {
         {/* Case Summary */}
         <div className="bg-white rounded-xl p-8 shadow-lg -mt-10 relative z-20 mb-8">
           <p className="text-lg text-gray-700 leading-relaxed">
-            In 2020, Timothy Jackson's defense of Schenker in the <em>Journal of Schenkerian Studies</em> sparked campus backlash, petitions, and administrative censure at UNT. He sued in 2021, alleging First Amendment retaliation and defamation, with courts allowing key claims to proceed despite immunity defenses. In 2025, UNT settled for $725,000 and restored Jackson's editorial role, underscoring enduring tensions between academic freedom and institutional politics.
+            In 2020, Timothy Jackson&apos;s defense of Schenker in the <em>Journal of Schenkerian Studies</em> sparked campus backlash, petitions, and administrative censure at UNT. He sued in 2021, alleging First Amendment retaliation and defamation, with courts allowing key claims to proceed despite immunity defenses. In 2025, UNT settled for $725,000 and restored Jackson&apos;s editorial role, underscoring enduring tensions between academic freedom and institutional politics.
           </p>
         </div>
 
