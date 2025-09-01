@@ -1,52 +1,41 @@
+// src/app/page.tsx
 'use client';
-import { useState, useMemo } from 'react';
-import { Search, User, FileText, Folder, ExternalLink, X, ChevronDown, ChevronUp } from 'lucide-react';
 
+import { useState, useMemo } from 'react';
+import { Search, User, FileText, Folder, ExternalLink, X, ChevronUp, ChevronDown } from 'lucide-react';
+import evidenceData from './evidenceData'; // your real data
+import { stats, categories } from './metadata'; // stats and categories metadata
+import getTypeIcon from './getTypeIcon'; // function to return icon based on type
+
+// --- Types ---
 interface EvidenceItem {
   id: string;
   title: string;
   description: string;
   keywords: string;
   person: string;
-  category?: string;
   url?: string;
   type?: string;
   size?: string;
   isFolder?: boolean;
+  category?: string;
   date?: string;
 }
 
-interface Category {
-  title: string;
-  description: string;
-  level: string;
-  icon: JSX.Element;
-  color: string;
-}
-
-interface Stats {
-  levels: number;
-  evidence: number;
-  years: number;
-  people: number;
-}
-
-interface JacksonUNTCaseProps {
-  evidenceData: EvidenceItem[];
-  categories: Record<string, Category>;
-  stats: Stats;
-}
-
-const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categories, stats }) => {
+// --- Main Component ---
+const JacksonUNTCase = () => {
+  // --- State ---
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
   const [openFolder, setOpenFolder] = useState<EvidenceItem | null>(null);
+  const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
 
+  // --- Detect if item is a folder ---
   const isFolder = (item: EvidenceItem) => {
     return item.isFolder || item.url?.endsWith('/') || item.type === 'folder' || item.size === 'Multiple Files' || item.size === '-';
   };
 
+  // --- Filtered evidence based on search ---
   const filteredEvidence = useMemo(() => {
     if (!searchTerm) return evidenceData;
     const term = searchTerm.toLowerCase();
@@ -56,8 +45,9 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
       item.keywords.toLowerCase().includes(term) ||
       item.person.toLowerCase().includes(term)
     );
-  }, [searchTerm, evidenceData]);
+  }, [searchTerm]);
 
+  // --- Group by person ---
   const peopleList = useMemo(() => {
     const people: Record<string, EvidenceItem[]> = {};
     evidenceData.forEach(item => {
@@ -65,8 +55,9 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
       people[item.person].push(item);
     });
     return people;
-  }, [evidenceData]);
+  }, []);
 
+  // --- Toggle sections ---
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev => ({
       ...prev,
@@ -74,23 +65,14 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
     }));
   };
 
-  const jumpToCategory = (categoryId: string) => {
-    const el = document.getElementById(categoryId);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const selectPerson = (person: string) => setSelectedPerson(person);
-  const openFolderModal = (folder: EvidenceItem) => setOpenFolder(folder);
+  const openFolderModal = (item: EvidenceItem) => setOpenFolder(item);
   const closeFolderModal = () => setOpenFolder(null);
-
-  const getTypeIcon = (type?: string) => {
-    switch (type?.toLowerCase()) {
-      case 'pdf': return <FileText className="w-5 h-5" />;
-      case 'folder': return <Folder className="w-5 h-5" />;
-      default: return <FileText className="w-5 h-5" />;
-    }
+  const selectPerson = (person: string) => setSelectedPerson(person);
+  const jumpToCategory = (key: string) => {
+    document.getElementById(key)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // --- Render ---
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -198,7 +180,7 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
                 <div className="p-8">
                   {categoryKey === 'people' && !selectedPerson && (
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
-                      {Object.keys(peopleList).sort().map(person => (
+                      {Object.keys(peopleList).sort().map((person) => (
                         <button
                           key={person}
                           onClick={() => selectPerson(person)}
@@ -231,7 +213,7 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
                   )}
 
                   <div className="grid gap-6">
-                    {categoryEvidence.map(item => (
+                    {categoryEvidence.map((item) => (
                       <div key={item.id} className="border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-200">
                         <div className="flex items-start justify-between mb-4">
                           <h3 className="text-xl font-bold text-gray-900 flex items-center gap-3">
@@ -246,8 +228,14 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
                         </div>
 
                         <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-                          <span className="flex items-center gap-1"><User className="w-4 h-4" />{item.person}</span>
-                          <span className="flex items-center gap-1"><FileText className="w-4 h-4" />{item.size}</span>
+                          <span className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            {item.person}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <FileText className="w-4 h-4" />
+                            {item.size}
+                          </span>
                           <span>{item.date}</span>
                           <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded font-medium">
                             {item.type?.charAt(0).toUpperCase() + item.type?.slice(1)}
@@ -295,7 +283,10 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
                   <Folder className="w-5 h-5" />
                   {openFolder.title}
                 </h3>
-                <button onClick={closeFolderModal} className="text-gray-500 hover:text-gray-700">
+                <button
+                  onClick={closeFolderModal}
+                  className="text-gray-500 hover:text-gray-700"
+                >
                   <X className="w-6 h-6" />
                 </button>
               </div>
@@ -328,7 +319,6 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
           </div>
         )}
 
-        {/* No Results */}
         {searchTerm && filteredEvidence.length === 0 && (
           <div className="bg-white rounded-xl p-12 text-center shadow-lg">
             <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -342,5 +332,6 @@ const JacksonUNTCase: React.FC<JacksonUNTCaseProps> = ({ evidenceData, categorie
 };
 
 export default JacksonUNTCase;
+
 
 
