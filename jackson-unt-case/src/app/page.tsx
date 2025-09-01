@@ -1,13 +1,8 @@
-// src/app/page.tsx
 'use client';
-
 import { useState, useMemo } from 'react';
-import { Search, User, FileText, Folder, ExternalLink, X, ChevronUp, ChevronDown } from 'lucide-react';
-import evidenceData from './evidenceData'; // your real data
-import { stats, categories } from './metadata'; // stats and categories metadata
-import getTypeIcon from './getTypeIcon'; // function to return icon based on type
+import { Search, User, FileText, Folder, X, ChevronUp, ChevronDown, ExternalLink } from 'lucide-react';
 
-// --- Types ---
+// --- Dummy Evidence Data ---
 interface EvidenceItem {
   id: string;
   title: string;
@@ -22,13 +17,60 @@ interface EvidenceItem {
   date?: string;
 }
 
-// --- Main Component ---
+const evidenceData: EvidenceItem[] = [
+  {
+    id: '1',
+    title: 'Schenker Article',
+    description: 'Original article by Jackson',
+    keywords: 'Schenker, Academic Freedom',
+    person: 'Timothy Jackson',
+    url: '#',
+    type: 'pdf',
+    size: '1MB',
+    isFolder: false,
+    category: 'articles',
+    date: '2020-05-12',
+  },
+  {
+    id: '2',
+    title: 'Deposit Folder',
+    description: 'Multiple documents',
+    keywords: 'court, deposition',
+    person: 'Timothy Jackson',
+    url: '#',
+    type: 'folder',
+    size: 'Multiple Files',
+    isFolder: true,
+    category: 'depositions',
+    date: '2021-02-10',
+  },
+];
+
+// --- Dummy Stats & Categories ---
+const stats = { levels: 3, evidence: 2, years: 5, people: 1 };
+const categories = {
+  all: { icon: '📁', title: 'All', description: 'All evidence', level: 'All', color: 'bg-gray-200' },
+  people: { icon: '👤', title: 'People', description: 'Documents by person', level: 'People', color: 'bg-gray-200' },
+  articles: { icon: '📄', title: 'Articles', description: 'Published articles', level: 'Article', color: 'bg-green-200' },
+  depositions: { icon: '📝', title: 'Depositions', description: 'Depositions', level: 'Deposition', color: 'bg-blue-200' },
+};
+
+// --- Dummy getTypeIcon ---
+const getTypeIcon = (type?: string) => {
+  if (!type) return null;
+  switch (type) {
+    case 'pdf': return '📄';
+    case 'folder': return '📁';
+    default: return '📎';
+  }
+};
+
 const JacksonUNTCase = () => {
   // --- State ---
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState('');
-  const [openFolder, setOpenFolder] = useState<EvidenceItem | null>(null);
   const [selectedPerson, setSelectedPerson] = useState<string | null>(null);
+  const [openFolder, setOpenFolder] = useState<EvidenceItem | null>(null);
 
   // --- Detect if item is a folder ---
   const isFolder = (item: EvidenceItem) => {
@@ -61,18 +103,21 @@ const JacksonUNTCase = () => {
   const toggleSection = (sectionId: string) => {
     setExpandedSections(prev => ({
       ...prev,
-      [sectionId]: !prev[sectionId]
+      [sectionId]: !prev[sectionId],
     }));
   };
 
+  // --- Modal controls ---
   const openFolderModal = (item: EvidenceItem) => setOpenFolder(item);
   const closeFolderModal = () => setOpenFolder(null);
-  const selectPerson = (person: string) => setSelectedPerson(person);
+
   const jumpToCategory = (key: string) => {
-    document.getElementById(key)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(key);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // --- Render ---
+  const selectPerson = (person: string) => setSelectedPerson(person);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -80,9 +125,7 @@ const JacksonUNTCase = () => {
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-black bg-opacity-20"></div>
           <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Jackson v. UNT System
-            </h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">Jackson v. UNT System</h1>
             <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed">
               Academic Freedom, Institutional Accountability & Civil Rights Violations
             </p>
@@ -101,7 +144,7 @@ const JacksonUNTCase = () => {
           </p>
         </div>
 
-        {/* Stats Overview */}
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {Object.entries(stats).map(([key, value]) => (
             <div key={key} className="bg-white rounded-xl p-6 text-center shadow-lg">
@@ -111,7 +154,7 @@ const JacksonUNTCase = () => {
           ))}
         </div>
 
-        {/* Search Controls */}
+        {/* Search */}
         <div className="bg-white rounded-xl p-8 shadow-lg mb-8">
           <div className="relative max-w-md mx-auto mb-6">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -140,15 +183,9 @@ const JacksonUNTCase = () => {
         {Object.entries(categories).map(([categoryKey, category]) => {
           let categoryEvidence: EvidenceItem[] = [];
 
-          if (categoryKey === 'all') {
-            categoryEvidence = filteredEvidence.sort((a, b) => a.title.localeCompare(b.title));
-          } else if (categoryKey === 'people') {
-            categoryEvidence = selectedPerson
-              ? filteredEvidence.filter(item => item.person === selectedPerson)
-              : [];
-          } else {
-            categoryEvidence = filteredEvidence.filter(item => item.category === categoryKey);
-          }
+          if (categoryKey === 'all') categoryEvidence = filteredEvidence;
+          else if (categoryKey === 'people') categoryEvidence = selectedPerson ? filteredEvidence.filter(i => i.person === selectedPerson) : [];
+          else categoryEvidence = filteredEvidence.filter(i => i.category === categoryKey);
 
           if (categoryEvidence.length === 0 && searchTerm && categoryKey !== 'people') return null;
 
@@ -163,16 +200,11 @@ const JacksonUNTCase = () => {
                     <h2 className="text-2xl md:text-3xl font-bold mb-3 flex items-center gap-4">
                       <span className="text-3xl">{category.icon}</span>
                       {category.title}
-                      <span className={`text-sm px-3 py-1 rounded-full ${category.color}`}>
-                        {category.level}
-                      </span>
+                      <span className={`text-sm px-3 py-1 rounded-full ${category.color}`}>{category.level}</span>
                     </h2>
                     <p className="text-lg opacity-90">{category.description}</p>
                   </div>
-                  {expandedSections[categoryKey] ? 
-                    <ChevronUp className="w-8 h-8 flex-shrink-0" /> : 
-                    <ChevronDown className="w-8 h-8 flex-shrink-0" />
-                  }
+                  {expandedSections[categoryKey] ? <ChevronUp className="w-8 h-8" /> : <ChevronDown className="w-8 h-8" />}
                 </div>
               </div>
 
@@ -201,10 +233,7 @@ const JacksonUNTCase = () => {
                   {categoryKey === 'people' && selectedPerson && (
                     <div className="mb-6">
                       <div className="flex items-center gap-3 mb-4">
-                        <button
-                          onClick={() => setSelectedPerson(null)}
-                          className="text-blue-600 hover:text-blue-800 font-medium"
-                        >
+                        <button onClick={() => setSelectedPerson(null)} className="text-blue-600 hover:text-blue-800 font-medium">
                           ← Back to People List
                         </button>
                       </div>
@@ -217,29 +246,16 @@ const JacksonUNTCase = () => {
                       <div key={item.id} className="border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-200">
                         <div className="flex items-start justify-between mb-4">
                           <h3 className="text-xl font-bold text-gray-900 flex items-center gap-3">
-                            {getTypeIcon(item.type)}
-                            {item.title}
-                            {isFolder(item) && (
-                              <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
-                                Folder
-                              </span>
-                            )}
+                            {getTypeIcon(item.type)} {item.title}
+                            {isFolder(item) && <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Folder</span>}
                           </h3>
                         </div>
 
                         <div className="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-                          <span className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
-                            {item.person}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <FileText className="w-4 h-4" />
-                            {item.size}
-                          </span>
+                          <span className="flex items-center gap-1"><User className="w-4 h-4" />{item.person}</span>
+                          <span className="flex items-center gap-1"><FileText className="w-4 h-4" />{item.size}</span>
                           <span>{item.date}</span>
-                          <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded font-medium">
-                            {item.type?.charAt(0).toUpperCase() + item.type?.slice(1)}
-                          </span>
+                          <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded font-medium">{item.type}</span>
                         </div>
 
                         <p className="text-gray-700 mb-4 leading-relaxed">{item.description}</p>
@@ -250,8 +266,7 @@ const JacksonUNTCase = () => {
                               onClick={() => openFolderModal(item)}
                               className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors"
                             >
-                              <Folder className="w-4 h-4" />
-                              Browse Folder
+                              <Folder className="w-4 h-4" /> Browse Folder
                             </button>
                           ) : (
                             <a
@@ -260,8 +275,7 @@ const JacksonUNTCase = () => {
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                             >
-                              <ExternalLink className="w-4 h-4" />
-                              View Document
+                              <ExternalLink className="w-4 h-4" /> View Document
                             </a>
                           )}
                         </div>
@@ -279,16 +293,8 @@ const JacksonUNTCase = () => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-xl max-w-2xl w-full max-h-96 overflow-hidden">
               <div className="flex items-center justify-between p-6 border-b">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Folder className="w-5 h-5" />
-                  {openFolder.title}
-                </h3>
-                <button
-                  onClick={closeFolderModal}
-                  className="text-gray-500 hover:text-gray-700"
-                >
-                  <X className="w-6 h-6" />
-                </button>
+                <h3 className="text-xl font-bold flex items-center gap-2"><Folder className="w-5 h-5" /> {openFolder.title}</h3>
+                <button onClick={closeFolderModal} className="text-gray-500 hover:text-gray-700"><X className="w-6 h-6" /></button>
               </div>
               <div className="p-6">
                 <p className="text-gray-700 mb-4">{openFolder.description}</p>
@@ -298,19 +304,10 @@ const JacksonUNTCase = () => {
                   </p>
                 </div>
                 <div className="flex gap-3">
-                  <a
-                    href={openFolder.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Visit Folder
+                  <a href={openFolder.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    <ExternalLink className="w-4 h-4" /> Visit Folder
                   </a>
-                  <button
-                    onClick={closeFolderModal}
-                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors"
-                  >
+                  <button onClick={closeFolderModal} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors">
                     Close
                   </button>
                 </div>
@@ -332,6 +329,7 @@ const JacksonUNTCase = () => {
 };
 
 export default JacksonUNTCase;
+
 
 
 
