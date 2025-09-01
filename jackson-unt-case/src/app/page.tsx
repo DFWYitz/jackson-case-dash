@@ -1,170 +1,100 @@
 "use client";
 import React, { useState, useMemo } from 'react';
-import { Search, ChevronDown, ChevronUp, ExternalLink, FileText, Video, Mail, Gavel, User } from 'lucide-react';
+import { Search, ChevronDown, ChevronUp, ExternalLink, FileText, Video, Mail, Gavel, User, Folder, X } from 'lucide-react';
 
 const JacksonUNTCase = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedSections, setExpandedSections] = useState({});
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [openFolder, setOpenFolder] = useState(null);
 
-  // Evidence data structured from Rasmusen's page
+  // Complete evidence data from Rasmusen's archive
   const evidenceData = [
-    {
-      id: 'jackson-response-ewell',
-      title: 'Jackson\'s Scholarly Response to Ewell',
-      person: 'Timothy Jackson',
-      category: 'faculty',
-      type: 'document',
-      description: 'Jackson\'s academic response in the Journal of Schenkerian Studies - the scholarly work that triggered institutional retaliation.',
-      url: 'https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf',
-      size: '2.2MB PDF',
-      date: 'Journal Publication',
-      keywords: 'academic freedom, musicology, scholarly response, retaliation trigger'
-    },
-    {
-      id: 'ewell-deposition',
-      title: 'Philip Ewell Video Deposition',
-      person: 'Philip Ewell',
-      category: 'faculty',
-      type: 'video',
-      description: 'Deposition of Philip Ewell, author of controversial racial theories in musicology whose work Jackson critiqued.',
-      url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924C%20(1).mp4',
-      size: 'Video Deposition',
-      date: 'Sept 2024',
-      keywords: 'deposition, testimony, racial theory, musicology controversy'
-    },
-    {
-      id: 'faculty-email-correspondence',
-      title: 'Faculty Email Correspondence',
-      person: 'Multiple Faculty',
-      category: 'faculty',
-      type: 'email',
-      description: 'Extensive email correspondence about the Ewell controversy and subsequent symposium, revealing coordination against Jackson.',
-      url: 'https://www.rasmusen.org/special/jackson/E%20mail%20correspondence%20about%20Ewell%20and%20the%20Symposium%202019-.pdf',
-      size: '2.8MB Email Archive',
-      date: '2019-2021',
-      keywords: 'email, coordination, conspiracy, faculty communications, smoking gun'
-    },
-    {
-      id: 'brand-deposition',
-      title: 'Brand Administrative Deposition',
-      person: 'Eugene Brand',
-      category: 'admin',
-      type: 'document',
-      description: 'Department administrator\'s testimony revealing internal processes and bias in handling the academic freedom case.',
-      url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20Brand%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf',
-      size: '1.1MB Transcript',
-      date: 'Sept 2024',
-      keywords: 'deposition, administrative bias, internal processes, under oath'
-    },
-    {
-      id: 'walls-testimony',
-      title: 'Walls Administrative Testimony',
-      person: 'John Walls',
-      category: 'admin',
-      type: 'document',
-      description: 'Comprehensive deposition revealing administrative handling of the controversy and decision-making processes.',
-      url: 'https://www.rasmusen.org/special/jackson/Walls%205-18-21%20full-size%20and%20word%20index.pdf',
-      size: '1.2MB Transcript',
-      date: 'May 2021',
-      keywords: 'administrative procedures, decision-making, institutional response'
-    },
-    {
-      id: 'editorial-process',
-      title: 'Journal Editorial Process Documentation',
-      person: 'UNT Administration',
-      category: 'admin',
-      type: 'document',
-      description: 'Detailed documentation of how the Journal of Schenkerian Studies editorial process was compromised and manipulated.',
-      url: 'https://www.rasmusen.org/special/jackson/Editorial%20Process%20of%20JSS%20vol%2012%20(condensed)%20Oct%2013%202020.pdf',
-      size: '591KB Process Doc',
-      date: 'October 2020',
-      keywords: 'editorial process, manipulation, journal compromise, internal procedures'
-    },
-    {
-      id: 'unt-committee-letter',
-      title: 'UNT Committee Correspondence',
-      person: 'Timothy Jackson',
-      category: 'upper',
-      type: 'document',
-      description: 'Official letter to UNT committee revealing institutional bias and failure to protect academic freedom.',
-      url: 'https://www.rasmusen.org/special/jackson/Letter%20to%20UNT%20Committee%20Oct%2017%202020.pdf',
-      size: '852KB Letter',
-      date: 'October 2020',
-      keywords: 'official response, institutional bias, academic freedom violation'
-    },
-    {
-      id: 'exhibit-pack-summary',
-      title: 'Exhibit Pack - Summary Judgment Evidence',
-      person: 'Legal Team',
-      category: 'upper',
-      type: 'legal',
-      description: 'Comprehensive exhibit package supporting summary judgment motion, demonstrating clear institutional liability.',
-      url: 'https://www.rasmusen.org/special/jackson/2024-12-19%20%5b82-1%5d%20Exhibit%20Pack%20Declaration%20Summary%20Judgment.pdf',
-      size: '40MB Evidence Pack',
-      date: 'December 2024',
-      keywords: 'summary judgment, institutional liability, court filing, evidence package'
-    },
-    {
-      id: 'expedited-discovery-motion',
-      title: 'Motion for Expedited Discovery',
-      person: 'Legal Team',
-      category: 'state',
-      type: 'legal',
-      description: 'Early motion establishing the scope of state institutional failures requiring immediate judicial intervention.',
-      url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Motion%20for%20Expedited%20Discovery.pdf',
-      size: '648KB Motion',
-      date: 'March 2021',
-      keywords: 'expedited discovery, state failures, judicial intervention, court motion'
-    },
-    {
-      id: 'jackson-affidavit',
-      title: 'Jackson Affidavit of Verification',
-      person: 'Timothy Jackson',
-      category: 'state',
-      type: 'legal',
-      description: 'Jackson\'s sworn affidavit establishing personal knowledge of state institutional failures and constitutional violations.',
-      url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf',
-      size: '318KB Affidavit',
-      date: 'March 2021',
-      keywords: 'sworn statement, constitutional violations, personal knowledge, state failures'
-    },
-    {
-      id: 'summary-judgment-defamation',
-      title: 'Motion for Summary Judgment on Defamation Claims',
-      person: 'Legal Team',
-      category: 'federal',
-      type: 'legal',
-      description: 'Comprehensive motion establishing clear federal civil rights violations warranting summary judgment against all defendants.',
-      url: 'https://www.rasmusen.org/special/jackson/2024-12-11%20%5b80%5d%20Plaintiff\'s%20Motion%20for%20Summary%20Judgment%20on%20Defamation%20Claims.pdf',
-      size: '315KB Motion',
-      date: 'December 2024',
-      keywords: 'summary judgment, defamation, federal civil rights, constitutional violations'
-    },
-    {
-      id: 'undisputed-facts',
-      title: 'Statement of Undisputed Facts',
-      person: 'Legal Team',
-      category: 'federal',
-      type: 'legal',
-      description: 'Comprehensive statement of undisputed facts supporting federal civil rights claims and institutional liability.',
-      url: 'https://www.rasmusen.org/special/jackson/2024-12-20%20%5b81%5d%20Statement%20of%20Undisputed%20Facts%20in%20support%20of%20Summary%20Judgment%20on%20Defamation%20Claims.pdf',
-      size: '152KB Statement',
-      date: 'December 2024',
-      keywords: 'undisputed facts, civil rights claims, institutional liability, legal statement'
-    },
-    {
-      id: 'record-appendix',
-      title: 'Record Appendix & Index to Opposition',
-      person: 'Legal Team',
-      category: 'federal',
-      type: 'legal',
-      description: 'Comprehensive record appendix and index supporting opposition to summary judgment, demonstrating the full scope of federal violations.',
-      url: 'https://www.rasmusen.org/special/jackson/2025-01-17%20%5b90%5d%20Record%20Appendix%20and%20Index%20to%20Pf%20Opposition%20to%20Summary%20Judgment.pdf',
-      size: '16MB Appendix',
-      date: 'January 2025',
-      keywords: 'record appendix, opposition, federal violations, complete record'
-    }
+    // Timothy Jackson files
+    { id: 'jackson-response', title: 'Timothy Jackson, Preliminary Response to Ewell', person: 'Timothy L. Jackson', category: 'faculty', type: 'document', description: 'Jackson\'s academic response in the Journal of Schenkerian Studies that triggered the controversy.', url: 'https://www.rasmusen.org/special/jackson/Timothy%20Jackson,%20Preliminary%20Response%20to%20Ewell,%20Journal%20of%20Schenkerian%20Studies%20Volume%2012%20.pdf', size: '2.2MB', date: '2020', keywords: 'academic freedom, musicology, scholarly response' },
+    { id: 'jackson-affidavit', title: 'Jackson Affidavit of Verification', person: 'Timothy L. Jackson', category: 'state', type: 'legal', description: 'Jackson\'s sworn affidavit establishing personal knowledge of institutional failures.', url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Jackson%20Affidavit%20of%20Verification.pdf', size: '318KB', date: '2021-03-08', keywords: 'sworn statement, constitutional violations' },
+    { id: 'jackson-depo-1', title: 'Timothy Jackson Deposition Part 1 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'First part of Jackson\'s comprehensive deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_1of9.mpg', size: '699MB', date: '2024-09-24', keywords: 'deposition, testimony, plaintiff' },
+    { id: 'jackson-depo-2', title: 'Timothy Jackson Deposition Part 2 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Second part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_2of9.mpg', size: '680MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-3', title: 'Timothy Jackson Deposition Part 3 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Third part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_3of9.mpg', size: '449MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-4', title: 'Timothy Jackson Deposition Part 4 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fourth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_4of9.mpg', size: '356MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-5', title: 'Timothy Jackson Deposition Part 5 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Fifth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_5of9.mpg', size: '614MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-7', title: 'Timothy Jackson Deposition Part 7 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Seventh part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_7of9.mpg', size: '751MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-8', title: 'Timothy Jackson Deposition Part 8 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Eighth part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_8of9%20(2).mpg', size: '311MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+    { id: 'jackson-depo-9', title: 'Timothy Jackson Deposition Part 9 of 9', person: 'Timothy L. Jackson', category: 'federal', type: 'video', description: 'Final part of Jackson\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/TJ092424_9of9.mpg', size: '174MB', date: '2024-09-24', keywords: 'deposition, testimony' },
+
+    // Philip Ewell files
+    { id: 'ewell-depo-1', title: 'Philip Ewell Deposition Part 1', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'First part of Ewell\'s deposition testimony.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924C%20(1).mp4', size: '301MB', date: '2024-09-19', keywords: 'deposition, racial theory, musicology' },
+    { id: 'ewell-depo-2', title: 'Philip Ewell Deposition Part 2', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Second part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924D%20(2).mp4', size: '120MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+    { id: 'ewell-depo-3', title: 'Philip Ewell Deposition Part 3', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Third part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924E%20(1).mp4', size: '572MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+    { id: 'ewell-depo-4', title: 'Philip Ewell Deposition Part 4', person: 'Philip Ewell', category: 'faculty', type: 'video', description: 'Fourth part of Ewell\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/P.Ewell091924F%20(2).mp4', size: '315MB', date: '2024-09-19', keywords: 'deposition, testimony' },
+
+    // Folder entries for organized collections
+    { id: 'ewell-production', title: 'Ewell Production Documents', person: 'Philip Ewell', category: 'faculty', type: 'folder', description: 'Complete collection of documents produced by Philip Ewell during discovery.', url: 'https://www.rasmusen.org/special/jackson/Ewell_production/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'discovery, production, documents' },
+    { id: 'ewell-exhibits', title: 'Ewell Marked Exhibits', person: 'Philip Ewell', category: 'faculty', type: 'folder', description: 'Marked exhibits related to Philip Ewell\'s involvement in the case.', url: 'https://www.rasmusen.org/special/jackson/Ewell_marked_exhibits/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'exhibits, marked documents' },
+
+    // Rachel Gain files
+    { id: 'gain-depo', title: 'Rachel Gain Deposition Transcript', person: 'Rachel Gain', category: 'admin', type: 'document', description: 'Full deposition transcript of graduate student Rachel Gain.', url: 'https://www.rasmusen.org/special/jackson/Gain%205-19-21%20full-size%20and%20word%20index.pdf', size: '617KB', date: '2021-05-19', keywords: 'deposition, graduate student, defendant' },
+    { id: 'gain-exhibits', title: 'Rachel Gain Exhibits 35-39', person: 'Rachel Gain', category: 'admin', type: 'document', description: 'Exhibits 35-39 from Rachel Gain\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/Gain%20Exs%2035-39,%205-19-21.pdf', size: '4.7MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
+    { id: 'gain-folder', title: 'Rachel Gain Document Collection', person: 'Rachel Gain', category: 'admin', type: 'folder', description: 'Complete collection of documents related to Rachel Gain.', url: 'https://www.rasmusen.org/special/jackson/Rachel_Gain/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'graduate student, defendant, documents' },
+
+    // Rebecca Dowd Geoffroy-Schwinden
+    { id: 'rebecca-folder', title: 'Rebecca Dowd Geoffroy-Schwinden Documents', person: 'Rebecca Dowd Geoffroy-Schwinden', category: 'admin', type: 'folder', description: 'Document collection for defendant Rebecca Dowd Geoffroy-Schwinden.', url: 'https://www.rasmusen.org/special/jackson/Rebecca_Schwinden/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, faculty' },
+    { id: 'rebecca-depo', title: 'Rebecca Dowd Geoffroy-Schwinden Deposition', person: 'Rebecca Dowd Geoffroy-Schwinden', category: 'admin', type: 'document', description: 'Deposition materials for Rebecca Dowd Geoffroy-Schwinden.', url: 'https://www.rasmusen.org/special/jackson/092724%20Rebecca%20Dowd%20Geoffroy-Schwinden%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf', size: '469MB', date: '2024-09-27', keywords: 'deposition, defendant' },
+
+    // Benjamin Brand (UNT Administrator)
+    { id: 'brand-depo', title: 'Benjamin Brand Deposition Transcript', person: 'Benjamin Brand', category: 'admin', type: 'document', description: 'Full deposition of UNT Department Chair Benjamin Brand.', url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20Brand%20deposition%20transcript%20-%20full-size%20and%20word%20index.pdf', size: '1.1MB', date: '2024-09-23', keywords: 'department chair, administrator, deposition' },
+    { id: 'brand-condensed', title: 'Benjamin Brand Deposition (Condensed)', person: 'Benjamin Brand', category: 'admin', type: 'document', description: 'Condensed version of Benjamin Brand\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/2024-09-23%20deposition%20of%20Benjamin%20Brand%20condensed.pdf', size: '1.0MB', date: '2024-09-23', keywords: 'deposition, condensed, administrator' },
+
+    // Levi Walls
+    { id: 'walls-depo', title: 'Levi Walls Deposition Full Transcript', person: 'Levi Walls', category: 'admin', type: 'document', description: 'Complete deposition transcript of Levi Walls.', url: 'https://www.rasmusen.org/special/jackson/Walls%205-18-21%20full-size%20and%20word%20index.pdf', size: '1.2MB', date: '2021-05-18', keywords: 'deposition, witness, journal editor' },
+    { id: 'walls-condensed', title: 'Levi Walls Deposition (Condensed)', person: 'Levi Walls', category: 'admin', type: 'document', description: 'Condensed version of Levi Walls deposition.', url: 'https://www.rasmusen.org/special/jackson/Walls%205-18-21%20condensed.pdf', size: '839KB', date: '2021-05-18', keywords: 'deposition, condensed' },
+    { id: 'walls-revised', title: 'Revised Levi Walls Deposition', person: 'Levi Walls', category: 'admin', type: 'document', description: 'Revised version of Levi Walls deposition transcript.', url: 'https://www.rasmusen.org/special/jackson/Revised%20Levi%20Walls%20deposition%20transcript%205-18-21%20full-size%20and%20word%20index.pdf', size: '907KB', date: '2021-05-18', keywords: 'deposition, revised, transcript' },
+    { id: 'walls-folder', title: 'Levi Walls Document Collection', person: 'Levi Walls', category: 'admin', type: 'folder', description: 'Complete collection of Levi Walls related documents.', url: 'https://www.rasmusen.org/special/jackson/Levi_Walls/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'witness, journal, documents' },
+
+    // Frank Heidlberger
+    { id: 'heidlberger-depo', title: 'Frank Heidlberger Deposition', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Deposition transcript of Frank Heidlberger.', url: 'https://www.rasmusen.org/special/jackson/Heidlberger%205-19-21%20full-size%20and%20word%20index.pdf', size: '851KB', date: '2021-05-19', keywords: 'deposition, defendant, faculty' },
+    { id: 'heidlberger-exhibits', title: 'Frank Heidlberger Exhibits 24-34', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Exhibits 24-34 from Frank Heidlberger\'s deposition.', url: 'https://www.rasmusen.org/special/jackson/Heidlberger%20Exs%2024-34,%205-19-21.pdf', size: '22MB', date: '2021-05-19', keywords: 'exhibits, deposition materials' },
+    { id: 'heidlberger-folder', title: 'Frank Heidlberger Documents', person: 'Frank Heidlberger', category: 'admin', type: 'folder', description: 'Document collection for Frank Heidlberger.', url: 'https://www.rasmusen.org/special/jackson/Frank_Heidlberger/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, faculty, documents' },
+
+    // Other defendant folders
+    { id: 'andrew-chung-folder', title: 'Andrew Chung Documents', person: 'Andrew Chung', category: 'admin', type: 'folder', description: 'Document collection for defendant Andrew Chung.', url: 'https://www.rasmusen.org/special/jackson/Andrew_Chung/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, documents' },
+    { id: 'benjamin-graf-folder', title: 'Benjamin Graf Documents', person: 'Benjamin Graf', category: 'admin', type: 'folder', description: 'Document collection for defendant Benjamin Graf.', url: 'https://www.rasmusen.org/special/jackson/benjamin_graf/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, documents' },
+    { id: 'bakulina-folder', title: 'Ellen Bakulina Documents', person: 'Ellen Bakulina', category: 'admin', type: 'folder', description: 'Document collection for defendant Ellen Bakulina.', url: 'https://www.rasmusen.org/special/jackson/bakulina/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'defendant, documents' },
+
+    // UNT Administrator folders
+    { id: 'jennifer-cowley-folder', title: 'Jennifer Cowley Documents', person: 'Jennifer Cowley', category: 'upper', type: 'folder', description: 'Documents related to former UNT Provost Jennifer Cowley.', url: 'https://www.rasmusen.org/special/jackson/Jennifer_Cowley/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'provost, administrator, documents' },
+    { id: 'john-ishiyama-folder', title: 'John Ishiyama Documents', person: 'John Ishiyama', category: 'upper', type: 'folder', description: 'Document collection related to John Ishiyama.', url: 'https://www.rasmusen.org/special/jackson/John_Ishiyama/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'administrator, documents' },
+    { id: 'stephen-slottow-folder', title: 'Stephen Slottow Documents', person: 'Stephen Slottow', category: 'upper', type: 'folder', description: 'Document collection for Stephen Slottow.', url: 'https://www.rasmusen.org/special/jackson/Stephen_Slottow/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'administrator, documents' },
+
+    // Legal filings
+    { id: 'motion-expedited', title: 'Motion for Expedited Discovery', person: 'Legal Team', category: 'state', type: 'legal', description: 'Early motion establishing scope of institutional failures.', url: 'https://www.rasmusen.org/special/jackson/2021-03-08%20Motion%20for%20Expedited%20Discovery.pdf', size: '648KB', date: '2021-03-08', keywords: 'expedited discovery, motion' },
+    { id: 'summary-judgment', title: 'Motion for Summary Judgment on Defamation', person: 'Legal Team', category: 'federal', type: 'legal', description: 'Motion establishing clear federal civil rights violations.', url: 'https://www.rasmusen.org/special/jackson/2024-12-11%20[80]%20Plaintiff\'s%20Motion%20for%20Summary%20Judgment%20on%20Defamation%20Claims.pdf', size: '315KB', date: '2024-12-11', keywords: 'summary judgment, defamation, federal' },
+    { id: 'exhibit-pack', title: 'Exhibit Pack - Summary Judgment Evidence', person: 'Legal Team', category: 'federal', type: 'legal', description: 'Comprehensive exhibit package supporting summary judgment.', url: 'https://www.rasmusen.org/special/jackson/2024-12-19%20[82-1]%20Exhibit%20Pack%20Declaration%20Summary%20Judgment.pdf', size: '40MB', date: '2024-12-19', keywords: 'exhibits, summary judgment, evidence' },
+    { id: 'undisputed-facts', title: 'Statement of Undisputed Facts', person: 'Legal Team', category: 'federal', type: 'legal', description: 'Statement supporting federal civil rights claims.', url: 'https://www.rasmusen.org/special/jackson/2024-12-20%20[81]%20Statement%20of%20Undisputed%20Facts%20in%20support%20of%20Summary%20Judgment%20on%20Defamation%20Claims.pdf', size: '152KB', date: '2024-12-20', keywords: 'undisputed facts, civil rights' },
+    { id: 'record-appendix', title: 'Record Appendix & Index to Opposition', person: 'Legal Team', category: 'federal', type: 'legal', description: 'Comprehensive record appendix demonstrating federal violations.', url: 'https://www.rasmusen.org/special/jackson/2025-01-17%20[90]%20Record%20Appendix%20and%20Index%20to%20Pf%20Opposition%20to%20Summary%20Judgment.pdf', size: '16MB', date: '2025-01-17', keywords: 'record appendix, opposition, federal violations' },
+
+    // Communications and correspondence
+    { id: 'email-correspondence', title: 'Email Correspondence about Ewell and Symposium', person: 'Multiple Faculty', category: 'faculty', type: 'email', description: 'Extensive email correspondence revealing coordination against Jackson.', url: 'https://www.rasmusen.org/special/jackson/E%20mail%20correspondence%20about%20Ewell%20and%20the%20Symposium%202019-.pdf', size: '2.8MB', date: '2019-2021', keywords: 'email, coordination, conspiracy, faculty' },
+    { id: 'unt-committee-letter', title: 'Letter to UNT Committee', person: 'Timothy L. Jackson', category: 'upper', type: 'document', description: 'Official letter revealing institutional bias and academic freedom failures.', url: 'https://www.rasmusen.org/special/jackson/Letter%20to%20UNT%20Committee%20Oct%2017%202020.pdf', size: '852KB', date: '2020-10-17', keywords: 'committee, institutional bias, academic freedom' },
+
+    // Editorial and administrative processes
+    { id: 'editorial-process', title: 'Editorial Process of JSS vol 12', person: 'UNT Administration', category: 'admin', type: 'document', description: 'Documentation of how the Journal editorial process was compromised.', url: 'https://www.rasmusen.org/special/jackson/Editorial%20Process%20of%20JSS%20vol%2012%20(condensed)%20Oct%2013%202020.pdf', size: '591KB', date: '2020-10-13', keywords: 'editorial process, journal, manipulation' },
+    { id: 'including-bakulina', title: 'Including Bakulina Document', person: 'Ellen Bakulina', category: 'admin', type: 'document', description: 'Document specifically including Ellen Bakulina materials.', url: 'https://www.rasmusen.org/special/jackson/Including%20Bakulina%20-%20Defendant%20UNT\'s%20Objections%20and%20Responses%20to%20Plaintiff\'s%20Second%20Set%20of%20Requests%20for%20Production.pdf', size: '79KB', date: '2025', keywords: 'bakulina, defendant, objections' },
+
+    // Expert testimony and witness materials
+    { id: 'peter-kohanski', title: 'Peter Kohanski Materials', person: 'Peter Kohanski', category: 'admin', type: 'document', description: 'Materials related to PhD student Peter Kohanski\'s involvement.', url: 'https://www.rasmusen.org/special/jackson/Peter%20Kohanski-20250110_110816.pdf', size: '8.7MB', date: '2025-01-10', keywords: 'phd student, witness, petition' },
+    { id: 'dr-philip-adrian', title: 'Dr. Philip Adrian Documents', person: 'Dr. Philip Adrian', category: 'admin', type: 'folder', description: 'Document collection for Dr. Philip Adrian.', url: 'https://www.rasmusen.org/special/jackson/80006_Dr_Philip_Adrian_Hill/', size: 'Multiple Files', isFolder: true, date: '2025', keywords: 'expert, witness, documents' },
+
+    // Supporting materials and exhibits
+    { id: 'heidelberger-ex1', title: 'FINAL Ex 1 - Heidelberger Materials', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Final Exhibit 1 related to Heidelberger materials.', url: 'https://www.rasmusen.org/special/jackson/FINAL%20Ex%201-Heidelberger%20letter%20to%20Jackson%20Feb%2013%202020.pdf', size: '656KB', date: '2020-02-13', keywords: 'exhibit, heidelberger, letter' },
+    { id: 'heidelberger-ex2', title: 'FINAL Ex 2 - July 2020 Materials', person: 'Frank Heidlberger', category: 'admin', type: 'document', description: 'Final Exhibit 2 from July 2020 materials.', url: 'https://www.rasmusen.org/special/jackson/FINAL%20Ex%202-2020-07-27%20Heidlberger%20letter%20to%20Jackson.pdf', size: '812KB', date: '2020-07-27', keywords: 'exhibit, heidelberger, letter' },
+
+    // Commentary and external materials
+    { id: 'chaouat-opinions', title: 'Bruno Chaouat Opinion Piece', person: 'Bruno Chaouat', category: 'faculty', type: 'document', description: 'External commentary defending Jackson in Quillette.', url: 'https://www.rasmusen.org/special/jackson/Opinions-Chaouat.pdf', size: '73KB', date: '2020', keywords: 'external commentary, quillette, defense' },
+
+    // Archive materials
+    { id: 'documents-zip', title: 'Documents for Tim (ZIP Archive)', person: 'Archive', category: 'all', type: 'archive', description: 'Compressed archive of documents for Timothy Jackson.', url: 'https://www.rasmusen.org/special/jackson/Documents%20for%20Tim.zip', size: '4.3MB', date: '2025', keywords: 'archive, zip, documents' },
+    { id: 'jackson-htm', title: 'Jackson HTML Index', person: 'Archive', category: 'all', type: 'document', description: 'HTML index page for Jackson case materials.', url: 'https://www.rasmusen.org/special/jackson/jackson.htm', size: '5.0KB', date: '2025', keywords: 'index, html, archive' }
   ];
 
   const categories = {
@@ -224,8 +154,17 @@ const JacksonUNTCase = () => {
       case 'video': return <Video className="w-4 h-4" />;
       case 'email': return <Mail className="w-4 h-4" />;
       case 'legal': return <Gavel className="w-4 h-4" />;
+      case 'folder': return <Folder className="w-4 h-4" />;
       default: return <FileText className="w-4 h-4" />;
     }
+  };
+
+  const isFolder = (item) => {
+    return item.isFolder || 
+           item.url.endsWith('/') || 
+           item.type === 'folder' ||
+           item.size === 'Multiple Files' ||
+           item.size === '-';
   };
 
   const filteredEvidence = useMemo(() => {
@@ -272,6 +211,14 @@ const JacksonUNTCase = () => {
       ...prev,
       people: true
     }));
+  };
+
+  const openFolderModal = (folder) => {
+    setOpenFolder(folder);
+  };
+
+  const closeFolderModal = () => {
+    setOpenFolder(null);
   };
 
   const stats = {
@@ -439,6 +386,11 @@ const JacksonUNTCase = () => {
                           <h3 className="text-xl font-bold text-gray-900 flex items-center gap-3">
                             {getTypeIcon(item.type)}
                             {item.title}
+                            {isFolder(item) && (
+                              <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                                Folder
+                              </span>
+                            )}
                           </h3>
                         </div>
                         
@@ -460,15 +412,25 @@ const JacksonUNTCase = () => {
                         <p className="text-gray-700 mb-4 leading-relaxed">{item.description}</p>
 
                         <div className="flex gap-3">
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                            View Document
-                          </a>
+                          {isFolder(item) ? (
+                            <button
+                              onClick={() => openFolderModal(item)}
+                              className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors"
+                            >
+                              <Folder className="w-4 h-4" />
+                              Browse Folder
+                            </button>
+                          ) : (
+                            <a
+                              href={item.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                              View Document
+                            </a>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -478,6 +440,51 @@ const JacksonUNTCase = () => {
             </div>
           );
         })}
+
+        {/* Folder Modal */}
+        {openFolder && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-xl max-w-2xl w-full max-h-96 overflow-hidden">
+              <div className="flex items-center justify-between p-6 border-b">
+                <h3 className="text-xl font-bold flex items-center gap-2">
+                  <Folder className="w-5 h-5" />
+                  {openFolder.title}
+                </h3>
+                <button
+                  onClick={closeFolderModal}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-6">
+                <p className="text-gray-700 mb-4">{openFolder.description}</p>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-yellow-800">
+                    This entry is a folder containing multiple files. The complete contents are available at the source location.
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href={openFolder.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Visit Folder
+                  </a>
+                  <button
+                    onClick={closeFolderModal}
+                    className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {searchTerm && filteredEvidence.length === 0 && (
           <div className="bg-white rounded-xl p-12 text-center shadow-lg">
